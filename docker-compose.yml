@@ -1,0 +1,17 @@
+services:
+  pihole:
+    image: pihole/pihole:2025.06.2
+    restart: unless-stopped
+
+    environment:
+      TZ: ${TZ}
+      FTLCONF_webserver_api_password: ${PIHOLE_PASSWORD}
+
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "8081:80"
+
+    volumes:
+      - ${DATA_ROOT}/pihole/etc-pihole:/etc/pihole
+      - ${DATA_ROOT}/pihole/etc-dnsmasq.d:/etc/dnsmasq.d
